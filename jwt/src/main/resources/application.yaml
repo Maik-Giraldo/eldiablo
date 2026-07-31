@@ -1,0 +1,22 @@
+# Configuración de la aplicación
+spring:
+  # Configuración de la base de datos MySQL
+  datasource:
+    url: jdbc:mysql://localhost:3306/jwt_ejemplo
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: root
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: none # Crea/actualiza las tablas automáticamente (usa 'none' en producción)
+    show-sql: true # Muestra las consultas SQL en la consola (opcional, desactiva en producción)
+
+server:
+  port: 8080 # Puerto del servidor
+
+# Configuración de JWT
+security:
+  jwt:
+    secret-key: ${env.security.jwt.secret-key} # Genera con 'openssl rand -base64 32'
+    token-expiration: ${env.security.jwt.token-expiration} # Access token: 10 minutos
