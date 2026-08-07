@@ -1,6 +1,5 @@
 package com.bananas.jwt.service;
 
-import com.bananas.jwt.JwtApplication;
 import java.util.Date;
 import java.util.Map;
 import java.util.function.Function;
@@ -11,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -133,5 +133,35 @@ public class JwtService {
     public Long extractRolId(String token) {
         return extractClaims(token, claims -> claims.get("rolId", Long.class));
         // Castear
+    }
+
+    /**
+     * Método para el refresco del token
+     * 
+     * @param token viejo
+     * @return token nuevo
+     * @throws Exception
+     */
+    public String refreshToken(String token) throws Exception {
+        Claims claims;
+
+        try {
+            claims = Jwts.parser()
+                    .verifyWith(getSignKey())
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload();
+        } catch (ExpiredJwtException e) {
+            e.printStackTrace();
+            throw new Exception("Token is expired", e);
+        } catch (JwtException e) {
+            e.printStackTrace();
+            throw new Exception("Token is invalid", e);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("Token is invalid", e);
+        }
+
+        return generateToken(claims.getSubject(), claims.get("userId", Long.class), claims.get("rolId", Long.class));
     }
 }
