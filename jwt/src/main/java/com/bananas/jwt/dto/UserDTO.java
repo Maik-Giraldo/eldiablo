@@ -20,11 +20,6 @@ public class UserDTO {
     private String email;
 
     /**
-     * contraseña del usuario
-     */
-    private String password;
-
-    /**
      * rol del usuario
      */
     private Long rolId;

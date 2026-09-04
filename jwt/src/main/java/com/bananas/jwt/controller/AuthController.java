@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bananas.jwt.dto.GlobalMessageResponseDTO;
+import com.bananas.jwt.dto.LoginRequestDTO;
+import com.bananas.jwt.dto.LoginResponseDTO;
 import com.bananas.jwt.dto.RegisterRequestDTO;
 import com.bananas.jwt.dto.UserDTO;
 import com.bananas.jwt.service.AuthService;
@@ -34,6 +36,17 @@ public class AuthController {
         try {
             GlobalMessageResponseDTO<UserDTO> response = authService.register(request);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<GlobalMessageResponseDTO<LoginResponseDTO>> login(@RequestBody LoginRequestDTO request) {
+        try {
+            GlobalMessageResponseDTO<LoginResponseDTO> response = authService.login(request);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
