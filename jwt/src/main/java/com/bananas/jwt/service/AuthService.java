@@ -101,4 +101,15 @@ public class AuthService {
         response.setMessage("Inicio de sesión exitoso");
         return response;
     }
+
+    public GlobalMessageResponseDTO<LoginResponseDTO> refreshToken(String token) throws Exception {
+        GlobalMessageResponseDTO<LoginResponseDTO> response = new GlobalMessageResponseDTO<>();
+        LoginResponseDTO refresh = new LoginResponseDTO();
+        String jwt = jwtService.refreshToken(token);
+        refresh.setJwt(jwt);
+        response.setData(refresh);
+        response.setMessage("Token is refreshed");
+
+        return response;
+    }
 }

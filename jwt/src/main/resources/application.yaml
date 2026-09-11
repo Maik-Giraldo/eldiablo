@@ -13,12 +13,12 @@ spring:
     show-sql: true # Muestra las consultas SQL en la consola (opcional, desactiva en producción)
 
 server:
-  port: 8080 # Puerto del servidor
+  port: 9090 # Puerto del servidor
   servlet:
     context-path: /api/v1/
 
 # Configuración de JWT
 security:
   jwt:
-    secret-key: ${env.security.jwt.secret-key} # Genera con 'openssl rand -base64 32'
+    secret-key: ${env.security.jwt.secret-key} # Genera con 'openssl rand -base64 32', lo guardan en una variable de entorno, inician el proyecto y automaticamente se habilita o se crea la carpeta .vscode, dentro de esa carpeta hay un archivo llamado launch.json, ahí hay un atributo llamado envFile y le cambian el nombre a env, y ahi colocan en llave valor el nombre de la variable de entorno con su valor.
     token-expiration: ${env.security.jwt.token-expiration} # Access token: 10 minutos
