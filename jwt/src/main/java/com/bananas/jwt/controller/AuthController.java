@@ -1,5 +1,6 @@
 package com.bananas.jwt.controller;
 
+import org.springframework.context.support.BeanDefinitionDsl.Role;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +13,8 @@ import com.bananas.jwt.dto.LoginRequestDTO;
 import com.bananas.jwt.dto.LoginResponseDTO;
 import com.bananas.jwt.dto.RegisterRequestDTO;
 import com.bananas.jwt.dto.UserDTO;
+import com.bananas.jwt.enums.RoleEnum;
+import com.bananas.jwt.security.RequiresRole;
 import com.bananas.jwt.service.AuthService;
 
 import jakarta.servlet.http.HttpServletRequest;
